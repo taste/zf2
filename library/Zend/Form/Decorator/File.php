@@ -109,15 +109,12 @@ class File extends AbstractDecorator implements FileDecorator
         if ($size > 0) {
             $element->setMaxFileSize(0);
             $markup[] = $view->broker('formHidden')->direct('MAX_FILE_SIZE', $size);
-            //$markup[] = $view->formHidden('MAX_FILE_SIZE', $size);
         }
 
         if (Adapter\Http::isApcAvailable()) {
             $markup[]  = $view->broker('formHidden')->direct(ini_get('apc.rfc1867_name'), uniqid(), array('id' => 'progress_key'));
-            //$markup[] = $view->formHidden(ini_get('apc.rfc1867_name'), uniqid(), array('id' => 'progress_key'));
         } else if (Adapter\Http::isUploadProgressAvailable()) {
             $markup[] = $view->broker('formHidden')->direct('UPLOAD_IDENTIFIER', uniqid(), array('id' => 'progress_key'));
-            //$markup[] = $view->formHidden('UPLOAD_IDENTIFIER', uniqid(), array('id' => 'progress_key'));
         }
 
         if ($element->isArray()) {
@@ -127,11 +124,9 @@ class File extends AbstractDecorator implements FileDecorator
                 $htmlAttribs        = $attribs;
                 $htmlAttribs['id'] .= '-' . $i;
                 $markup[] = $view->broker('formFile')->direct($name, $htmlAttribs);
-                //$markup[] = $view->formFile($name, $htmlAttribs);
             }
         } else {
             $markup[] = $view->broker('formFile')->direct($name, $attribs);
-            //$markup[] = $view->formFile($name, $attribs);
         }
 
         $markup = implode($separator, $markup);
